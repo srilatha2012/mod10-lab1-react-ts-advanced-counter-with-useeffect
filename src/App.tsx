@@ -1,11 +1,13 @@
 import './App.css'
+import { AdvancedCounter } from './components/AdvancedCounter'
 
 function App() {
  
   return (
-    <>
-     <h1>React Advanced Counter</h1>
-    </>
+    <div>
+     <h1>Counter</h1>
+     <AdvancedCounter/>
+    </div>
   )
 }
 
