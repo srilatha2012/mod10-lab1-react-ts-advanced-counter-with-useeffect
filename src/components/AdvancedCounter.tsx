@@ -5,6 +5,15 @@ export function AdvancedCounter() {
     const [count, setCount] = useState<number>(0);
     const [history, setHistory] = useState<number[]>([]);
 
+
+    // Load history when page refresh
+    useEffect(() => {
+     const savedCount = localStorage.getItem("count");
+     if(savedCount!==null) {
+        setCount(JSON.parse(savedCount));
+     }
+    },[]);
+
     //helper function to update the count
     function updateCount(newCount: number) {
         setCount(newCount);
