@@ -20,7 +20,8 @@ export function AdvancedCounter() {
         setCount(0);
         setHistory((prevHistory) => [...prevHistory, 0]);
     }
-
+    
+    //Auto-save count
     useEffect(()=> {
         const timerId = setTimeout(()=>{
           localStorage.setItem("count",JSON.stringify(count));
@@ -30,7 +31,24 @@ export function AdvancedCounter() {
             clearTimeout(timerId);
         }
 
-    },[count])
+    },[count]);
+
+    //keyboard event listener
+    useEffect(()=>{
+       function handleKeyDown(event: KeyboardEvent) {
+         if(event.key === "ArrowUp") {
+            setCount((prevCount) => prevCount+1);
+         }
+         if(event.key === "ArrowDown") {
+            setCount((prevCount) => prevCount-1);
+         }
+       }
+       document.addEventListener("keydown",handleKeyDown);
+       return () =>{
+        document.removeEventListener("keydown", handleKeyDown)
+       }
+
+    },[]);
 
     return (
         <div>
