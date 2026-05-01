@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function AdvancedCounter() {
 
@@ -20,6 +20,17 @@ export function AdvancedCounter() {
         setCount(0);
         setHistory((prevHistory) => [...prevHistory, 0]);
     }
+
+    useEffect(()=> {
+        const timerId = setTimeout(()=>{
+          localStorage.setItem("count",JSON.stringify(count));
+        },500)
+        
+        return () => {
+            clearTimeout(timerId);
+        }
+
+    },[count])
 
     return (
         <div>
