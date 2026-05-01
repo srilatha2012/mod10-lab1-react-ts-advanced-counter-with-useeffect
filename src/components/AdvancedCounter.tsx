@@ -1,15 +1,37 @@
-import { useEffect, useState } from "react"
+import { useState } from "react";
 
 export function AdvancedCounter() {
 
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState<number>(0);
+    const [history, setHistory] = useState<number[]>([]);
+
+    function handleIncrement() {
+        const newCount = count + 1;
+        setCount(newCount);
+        setHistory((prevHistory) => [...prevHistory, newCount]);
+
+    }
+    function handleDecrement() {
+         const newCount = count - 1;
+        setCount(newCount);
+        setHistory((prevHistory) => [...prevHistory, newCount]);
+    }
+    function handleReset() {
+        setCount(0);
+        setHistory((prevHistory) => [...prevHistory, 0]);
+    }
 
     return (
         <div>
-            <h2>Current Count {count}</h2>
-            <button onClick={() => setCount(count+1)}>Increment</button>
-            <button onClick={() => setCount(count-1)}>Decrement</button>
-            <button onClick={()=> setCount(0)}>Reset</button>
+            <h2>Count {count}</h2>
+            <button onClick={handleIncrement}>Increment</button>
+            <button onClick={handleDecrement}>Decrement</button>
+            <button onClick={handleReset}>Reset</button>
+
+            <h3>History</h3>
+            <ul>{history.map((value, index) => (
+                <li key={index}>{value}</li>
+            ))}</ul>
         </div>
     )
 
